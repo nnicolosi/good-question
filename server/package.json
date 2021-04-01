@@ -1,8 +1,8 @@
 {
-  "name": "server",
+  "name": "good-question-server",
   "version": "0.0.1",
   "description": "",
-  "author": "",
+  "author": "Nick Nicolosi",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
