@@ -1,0 +1,21 @@
+version: '3'
+services:
+  localdb:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_DB: goodquestion
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_ROOT_PASSWORD: postgres
+    ports:
+      # other services can access within the network at localdb:5432
+      - 5432:5432
+    expose:
+      # opens localhost:5432 for access outside the network
+      - 5432
+    networks:
+      - good-question-network
+networks:
+  good-question-network:
+    driver: bridge
