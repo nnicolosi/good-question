@@ -3,7 +3,7 @@ import { Connection} from 'typeorm';
 import {
   DATABASE_CONNECTION,
   USER_REPOSITORY,
-} from '../common/common.constants';
+} from '../common/constants';
 
 export const userProviders = [
   {

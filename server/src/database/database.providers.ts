@@ -1,5 +1,12 @@
 import { createConnection } from 'typeorm';
-import { DATABASE_CONNECTION } from '../common/common.constants';
+import { DATABASE_CONNECTION } from '../common/constants';
+import {
+  dbHostname,
+  dbName,
+  dbPassword,
+  dbPort,
+  dbUsername,
+} from '../config/secrets';
 
 export const databaseProviders = [
   {
@@ -7,11 +14,11 @@ export const databaseProviders = [
     useFactory: async () =>
       await createConnection({
         type: 'postgres',
-        host: 'localhost',
-        port: 5432,
-        username: 'postgres',
-        password: 'postgres',
-        database: 'goodquestion',
+        host: dbHostname,
+        port: dbPort,
+        database: dbName,
+        username: dbUsername,
+        password: dbPassword,
         entities: [__dirname + '/../**/*.entity{.ts,.js}'],
         synchronize: true,
       }),
