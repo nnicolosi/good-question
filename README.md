@@ -6,7 +6,7 @@ This repository is implemented as a monorepo.  I chose to do this for a couple o
 
 - It encourages development of full vertical slices of functionality (or at least non-breaking commits to the overall application)
 - It makes it easier to keep the UI, API, and DB in sync with each other at all times
-- It is convenient for spinning up the whole application with a docker-compose command
+- It's convenient for spinning up the whole application with a docker-compose command
 
 ## Technology Choices
 This is a full-stack JavaScript/TypeScript web application:
