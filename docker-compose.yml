@@ -8,6 +8,8 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_ROOT_PASSWORD: postgres
+    volumes:
+      - ./data:/var/lib/postgresql/data/
     ports:
       # other services can access within the network at localdb:5432
       - 5432:5432

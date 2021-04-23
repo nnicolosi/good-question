@@ -1,5 +1,8 @@
 .idea
 
+# Local DB
+/data
+
 # Logs
 logs
 *.log
