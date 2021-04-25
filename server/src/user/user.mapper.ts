@@ -1,3 +1,4 @@
+import * as bcrypt from 'bcrypt';
 import { CreateUserDto } from './dtos/create-user.dto';
 import { Injectable } from '@nestjs/common';
 import { User } from './user.entity';
@@ -12,11 +13,11 @@ export class UserMapper {
     };
   }
 
-  mapCreateUserDtoToEntity(createUserDto: CreateUserDto): User {
+  async mapCreateUserDtoToEntity(createUserDto: CreateUserDto): Promise<User> {
     return {
       id: 0,
       username: createUserDto.username,
-      password: createUserDto.password,
+      password: await bcrypt.hash(createUserDto.password, 10),
     };
   }
 }

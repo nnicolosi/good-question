@@ -7,11 +7,12 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
+import { CreateUserDto } from './dtos/create-user.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { LocalAuthGuard } from '../auth/local-auth.guard';
 import { UserDto } from './dtos/user.dto';
 import { UserMapper } from './user.mapper';
 import { UserService } from './user.service';
-import { CreateUserDto } from './dtos/create-user.dto';
 
 @Controller('/user')
 export class UserController {
@@ -34,10 +35,10 @@ export class UserController {
     return this.userMapper.mapEntityToDto(user);
   }
 
-  @UseGuards(JwtAuthGuard)
+  // TODO: Figure out the right pattern for creating a new account
   @Post()
   async createUser(@Body() createUserDto: CreateUserDto) {
-    const user = this.userMapper.mapCreateUserDtoToEntity(createUserDto);
+    const user = await this.userMapper.mapCreateUserDtoToEntity(createUserDto);
     const response = await this.userService.create(user);
     return this.userMapper.mapEntityToDto(response);
   }
