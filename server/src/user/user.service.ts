@@ -8,10 +8,14 @@ export class UserService {
   constructor(
     @Inject(USER_REPOSITORY)
     private userRepository: Repository<User>,
-  ) {}
+  ) { }
 
   async findAll(): Promise<User[]> {
     return this.userRepository.find();
+  }
+
+  async findCount(): Promise<number> {
+    return this.userRepository.count();
   }
 
   async findById(id: number): Promise<User | undefined> {

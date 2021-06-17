@@ -13,13 +13,15 @@ import { LocalAuthGuard } from '../auth/local-auth.guard';
 import { UserDto } from './dtos/user.dto';
 import { UserMapper } from './user.mapper';
 import { UserService } from './user.service';
+import { Role } from '../common/enums/role.enum';
+import { Roles } from '../auth/roles.decorator';
 
 @Controller('/user')
 export class UserController {
   constructor(
     private readonly userMapper: UserMapper,
     private readonly userService: UserService,
-  ) {}
+  ) { }
 
   @UseGuards(JwtAuthGuard)
   @Get()
@@ -35,7 +37,7 @@ export class UserController {
     return this.userMapper.mapEntityToDto(user);
   }
 
-  // TODO: Figure out the right pattern for creating a new account
+  @Roles(Role.Admin)
   @Post()
   async createUser(@Body() createUserDto: CreateUserDto) {
     const user = await this.userMapper.mapCreateUserDtoToEntity(createUserDto);

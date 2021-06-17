@@ -10,6 +10,7 @@ export class UserMapper {
     return {
       id: user.id,
       username: user.username,
+      role: user.role,
     };
   }
 
@@ -18,6 +19,7 @@ export class UserMapper {
       id: 0,
       username: createUserDto.username,
       password: await bcrypt.hash(createUserDto.password, 10),
+      role: createUserDto.role,
     };
   }
 }
