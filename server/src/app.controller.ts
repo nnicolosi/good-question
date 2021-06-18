@@ -18,6 +18,7 @@ export class AppController {
     return { status: this.appService.getStatus() };
   }
 
+  @Public()
   @UseGuards(LocalAuthGuard)
   @Post('auth/login')
   async login(@Request() request) {

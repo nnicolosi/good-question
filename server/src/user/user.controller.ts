@@ -37,6 +37,7 @@ export class UserController {
     return this.userMapper.mapEntityToDto(user);
   }
 
+  @UseGuards(JwtAuthGuard)
   @Roles(Role.Admin)
   @Post()
   async createUser(@Body() createUserDto: CreateUserDto) {
