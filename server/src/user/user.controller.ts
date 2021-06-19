@@ -5,6 +5,7 @@ import {
   Param,
   ParseIntPipe,
   Post,
+  Request,
   UseGuards,
 } from '@nestjs/common';
 import { CreateUserDto } from './dtos/create-user.dto';
@@ -22,6 +23,12 @@ export class UserController {
     private readonly userMapper: UserMapper,
     private readonly userService: UserService,
   ) { }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('/current')
+  async current(@Request() request): Promise<UserDto> {
+    return request.user;
+  }
 
   @UseGuards(JwtAuthGuard)
   @Get()
