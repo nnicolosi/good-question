@@ -11,15 +11,19 @@ export class UserMapper {
       id: user.id,
       username: user.username,
       role: user.role,
+      firstName: user.firstName,
+      lastName: user.lastName,
     };
   }
 
-  async mapCreateUserDtoToEntity(createUserDto: CreateUserDto): Promise<User> {
+  async mapCreateUserDtoToEntity(dto: CreateUserDto): Promise<User> {
     return {
       id: 0,
-      username: createUserDto.username,
-      password: await bcrypt.hash(createUserDto.password, 10),
-      role: createUserDto.role,
+      username: dto.username,
+      password: await bcrypt.hash(dto.password, 10),
+      role: dto.role,
+      firstName: dto.firstName,
+      lastName: dto.lastName,
     };
   }
 }

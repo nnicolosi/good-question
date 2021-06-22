@@ -3,6 +3,7 @@ import { AuthService } from './auth/auth.service';
 import { Controller, Get, Post, Request, Response, UseGuards } from '@nestjs/common';
 import { LocalAuthGuard } from './auth/local-auth.guard';
 import { Public } from './auth/public.decorator';
+import { JwtAuthGuard } from './auth/jwt-auth.guard';
 
 @Controller()
 export class AppController {
@@ -19,8 +20,15 @@ export class AppController {
 
   @Public()
   @UseGuards(LocalAuthGuard)
-  @Post('auth/login')
+  @Post('/auth/login')
   login(@Request() request) {
     return this.authService.login(request.user);
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('/auth/logout')
+  logout(@Request() request, @Response() response) {
+    request.logout();
+    response.redirect('/');
   }
 }

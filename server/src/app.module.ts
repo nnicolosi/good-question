@@ -21,7 +21,7 @@ import {
 export class AppModule {
   constructor(private readonly userMapper: UserMapper, private readonly userService: UserService) { }
 
-  async init() {
+  async onApplicationBootstrap() {
     const userCount = await this.userService.findCount();
 
     if (!userCount) {
@@ -29,6 +29,8 @@ export class AppModule {
         username: adminUsername,
         password: adminPassword,
         role: Role.Admin,
+        firstName: 'Administrator',
+        lastName: ''
       }).then((admin) => {
         this.userService.create(admin);
       });

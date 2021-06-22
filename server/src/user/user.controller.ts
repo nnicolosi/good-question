@@ -27,7 +27,8 @@ export class UserController {
   @UseGuards(JwtAuthGuard)
   @Get('/current')
   async current(@Request() request): Promise<UserDto> {
-    return request.user;
+    const user = await this.userService.findById(request.user.id);
+    return this.userMapper.mapEntityToDto(user);
   }
 
   @UseGuards(JwtAuthGuard)

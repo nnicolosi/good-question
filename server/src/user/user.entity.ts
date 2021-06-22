@@ -1,5 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { IsEmail, IsEnum, IsNotEmpty } from 'class-validator';
+import { IsEmail, IsEnum, IsNotEmpty, IsString } from 'class-validator';
 import { Role } from '../common/enums/role.enum';
 
 @Entity()
@@ -18,4 +18,12 @@ export class User {
   @Column()
   @IsEnum(Role)
   role: Role;
+
+  @Column()
+  @IsString()
+  firstName: string;
+
+  @Column()
+  @IsString()
+  lastName: string;
 }
