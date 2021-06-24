@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { useHistory } from 'react-router-dom';
 import { login } from '../../services/account.service';
+import './login.scss';
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');
@@ -23,6 +24,11 @@ const LoginPage = () => {
 
   const setButtonState = () => {
     setDisabled(!username || !password);
+  };
+
+  const clearError = (e) => {
+    e.preventDefault();
+    setError('');
   };
 
   const submitLogin = (e) => {
@@ -53,40 +59,36 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="login-form">
-      <div className="login-error">
-        <span className="error">{error}</span>
+    <form className="box login-form">
+      <div className="field">
+        <label className="label">Username</label>
+        <div className="control has-icons-left">
+          <input className="input" value={username} onChange={handleUsernameInput} />
+          <span className="icon is-small is-left">
+            <i className="fas fa-user" />
+          </span>
+        </div>
       </div>
-      <div className="input-group">
-        <label htmlFor="username">Username</label>
-        <input
-          type="text"
-          name="username"
-          placeholder="Username"
-          value={username}
-          onChange={handleUsernameInput}
-        />
+      <div className="field">
+        <label className="label">Password</label>
+        <div className="control has-icons-left">
+          <input className="input" type="password" value={password} onChange={handlePasswordInput} />
+          <span className="icon is-small is-left">
+            <i className="fas fa-lock" />
+          </span>
+        </div>
       </div>
-      <div className="input-group">
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={password}
-          onChange={handlePasswordInput}
-        />
+      <br />
+      <div className="buttons is-centered">
+        <button type="submit" className="button is-primary" disabled={disabled} onClick={submitLogin}>
+          Submit
+        </button>
       </div>
-
-      <button
-        type="submit"
-        className="login-button"
-        disabled={disabled}
-        onClick={submitLogin}
-      >
-        Login
-      </button>
-    </div>
+      <div className={`notification is-danger ${error ? '' : 'is-hidden'}`}>
+        <button className="delete" onClick={clearError}></button>
+        {error}
+      </div>
+    </form>
   );
 };
 

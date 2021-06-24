@@ -4,7 +4,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Cookies } from 'react-cookie';
 import axios from 'axios';
-import './index.css';
+import './index.scss';
 
 ReactDOM.render(
   <React.StrictMode>

@@ -1,0 +1,22 @@
+.navbar {
+  padding-left: 24px;
+  padding-right: 24px;
+
+  .navbar-brand {
+    .navbar-brand-name {
+      font-size: 24px;
+      font-weight: 600;
+      padding: 2px 12px 2px 12px;
+    }
+  }
+
+  .navbar-item {
+    &.active {
+      cursor: default;
+
+      &:hover {
+        background-color: transparent !important;
+      }
+    }
+  }
+}

@@ -1,20 +1,19 @@
-import './App.css';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import HomePage from './pages/home';
-import LoginPage from './pages/login';
-import NotFound from './pages/not-found';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import { Fragment } from 'react';
+import { BrowserRouter as Router } from 'react-router-dom';
+import Navigation from './components/navigation';
+import Routes from './routes';
+import './App.scss';
 
 const App = () => {
   return (
-    <Router>
-      <Switch>
-        <Route path='/login' component={LoginPage} />
-        <Route path='/home' component={HomePage} />
-        <Route exact path='/' component={HomePage} />
-        <Route component={NotFound} />
-      </Switch>
-    </Router>
+    <Fragment>
+      <Router>
+        <Navigation />
+        <Routes />
+      </Router>
+    </Fragment>
   );
-}
+};
 
 export default App;
