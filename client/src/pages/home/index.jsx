@@ -13,15 +13,15 @@ const HomePage = () => {
           <div className="tile is-parent">
             <article className="tile is-child notification is-primary">
               <p className="title">Capture</p>
-              <p className="content">Have a good question? Capture it here with key guidance for the interviewer when asking it.</p>
+              <p className="content">Have a good question? Capture it here with key guidance for the interviewer.</p>
             </article>
             <article className="tile is-child notification is-primary">
               <p className="title">Configure</p>
-              <p className="content">Categorize and tag your question. Configure interview script templates.</p>
+              <p className="content">Categorize and tag your questions. Configure interview script templates.</p>
             </article>
             <article className="tile is-child notification is-primary">
               <p className="title">Create</p>
-              <p className="content">Create interview scripts based on your templates.</p>
+              <p className="content">Create consistent interview scripts based on structured templates.</p>
             </article>
             <article className="tile is-child notification is-primary">
               <p className="title">Curate</p>
