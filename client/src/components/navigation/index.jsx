@@ -1,7 +1,23 @@
-import { Link, NavLink } from 'react-router-dom';
+import { useContext, useMemo } from 'react';
+import { Cookies } from 'react-cookie';
+import { Link, NavLink, useHistory } from 'react-router-dom';
+import { logout } from '../../services/account.service';
+import { UserContext } from '../../context/user-context';
 import './navigation.scss';
 
 const Navigation = () => {
+  const cookies = useMemo(() => new Cookies(), []);
+  const userContext = useContext(UserContext);
+  const history = useHistory();
+
+  const logoutUser = () => {
+    logout().then(() => {
+      cookies.set('jwt', null, { maxAge: 0 });
+      userContext.removeCurrentUser();
+      history.push('/');
+    });
+  };
+
   return (
     <nav className="navbar is-light" role="navigation" aria-label="main navigation">
       <div className="navbar-brand">
@@ -10,11 +26,16 @@ const Navigation = () => {
           <span className="navbar-brand-name">Good Question</span>
         </Link>
       </div>
-
       <div className="navbar-end">
-        <NavLink className="navbar-item" to="/login" activeClassName="active">
-          Login
-        </NavLink>
+        {userContext.user ? (
+          <Link className="navbar-item" to="/" onClick={logoutUser}>
+            Logout
+          </Link>
+        ) : (
+          <NavLink className="navbar-item" to="/login" activeClassName="active">
+            Login
+          </NavLink>
+        )}
       </div>
     </nav>
   );

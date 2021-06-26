@@ -16,7 +16,11 @@ ReactDOM.render(
 axios.interceptors.request.use((config) => {
   const cookies = new Cookies();
   const jwt = cookies.get('jwt');
-  config.headers.common['Authorization'] = `Bearer ${jwt}`;
+
+  if (jwt) {
+    //config.headers.common['Authorization'] = `Bearer ${jwt}`;
+    config.headers.Authorization = `Bearer ${jwt}`;
+  }
 
   return config;
 });

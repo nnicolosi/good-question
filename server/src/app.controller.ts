@@ -26,9 +26,8 @@ export class AppController {
   }
 
   @UseGuards(JwtAuthGuard)
-  @Post('/auth/logout')
-  logout(@Request() request, @Response() response) {
-    request.logout();
-    response.redirect('/');
+  @Get('/auth/logout')
+  logout(@Request() request) {
+    return request.logout();
   }
 }

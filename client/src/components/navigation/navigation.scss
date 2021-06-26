@@ -12,12 +12,15 @@
   }
 
   .navbar-item {
-    &.active {
-      cursor: default;
+    background-color: transparent !important;
 
-      &:hover {
-        background-color: transparent !important;
-      }
+    &:hover {
+      background-color: transparent !important;
+    }
+
+    &.active {
+      background-color: transparent !important;
+      cursor: default;
     }
   }
 }

@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { useHistory } from 'react-router-dom';
 import { login } from '../../services/account.service';
+import { current } from '../../services/user.service';
+import { UserContext } from '../../context/user-context';
 import './login.scss';
 
 const LoginPage = () => {
@@ -10,6 +12,7 @@ const LoginPage = () => {
   const [disabled, setDisabled] = useState(true);
   const [error, setError] = useState('');
   const [, setCookie] = useCookies(['jwt']);
+  const userContext = useContext(UserContext);
   const history = useHistory();
 
   const handleUsernameInput = (e) => {
@@ -40,7 +43,11 @@ const LoginPage = () => {
       .then((response) => {
         if (response?.status === 201 && response?.data?.token) {
           setCookie('jwt', response.data.token);
-          history.push('/');
+
+          current().then((response) => {
+            userContext.setCurrentUser(response.data);
+            history.push('/');
+          });
         } else {
           setDisabled(false);
         }

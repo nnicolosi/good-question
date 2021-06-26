@@ -1,17 +1,30 @@
 import '@fortawesome/fontawesome-free/css/all.min.css';
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { UserContext } from './context/user-context';
 import Navigation from './components/navigation';
 import Routes from './routes';
 import './App.scss';
 
 const App = () => {
+  const [user, setUser] = useState();
+
+  const setCurrentUser = (user) => {
+    setUser(user);
+  };
+
+  const removeCurrentUser = () => {
+    setUser();
+  };
+
   return (
     <Fragment>
-      <Router>
-        <Navigation />
-        <Routes />
-      </Router>
+      <UserContext.Provider value={{ user, setCurrentUser, removeCurrentUser }}>
+        <Router>
+          <Navigation />
+          <Routes />
+        </Router>
+      </UserContext.Provider>
     </Fragment>
   );
 };
