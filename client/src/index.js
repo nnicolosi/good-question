@@ -18,12 +18,22 @@ axios.interceptors.request.use((config) => {
   const jwt = cookies.get('jwt');
 
   if (jwt) {
-    //config.headers.common['Authorization'] = `Bearer ${jwt}`;
     config.headers.Authorization = `Bearer ${jwt}`;
   }
 
   return config;
 });
+
+axios.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    if (error.response.status === 401) {
+      window.location.href = '/login';
+    }
+  }
+);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
