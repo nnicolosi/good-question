@@ -3,6 +3,7 @@ import { Fragment, useState } from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { UserContext } from './context/user-context';
 import Navigation from './components/navigation';
+import Footer from './components/footer';
 import Routes from './routes';
 import './App.scss';
 
@@ -23,6 +24,7 @@ const App = () => {
         <Router>
           <Navigation />
           <Routes />
+          <Footer />
         </Router>
       </UserContext.Provider>
     </Fragment>
