@@ -9,7 +9,8 @@ import './login.scss';
 const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [disabled, setDisabled] = useState(true);
+  const [submitDisabled, setSubmitDisabled] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
   const [, setCookie] = useCookies(['jwt']);
   const userContext = useContext(UserContext);
@@ -26,7 +27,7 @@ const LoginPage = () => {
   };
 
   const setButtonState = () => {
-    setDisabled(!username || !password);
+    setSubmitDisabled(!username || !password);
   };
 
   const clearError = (e) => {
@@ -36,7 +37,8 @@ const LoginPage = () => {
 
   const submitLogin = (e) => {
     e.preventDefault();
-    setDisabled(true);
+    setSubmitDisabled(true);
+    setSubmitting(true);
     setError('');
 
     login(username, password)
@@ -45,11 +47,18 @@ const LoginPage = () => {
           setCookie('jwt', response.data.token);
 
           current().then((response) => {
-            userContext.setCurrentUser(response.data);
-            history.push('/');
+            const user = response.data;
+            userContext.setCurrentUser(user);
+
+            if (user.reset) {
+              history.push('/set-password');
+            } else {
+              history.push('/');
+            }
           });
         } else {
-          setDisabled(false);
+          setSubmitDisabled(false);
+          setSubmitting(false);
         }
       })
       .catch((error) => {
@@ -61,7 +70,8 @@ const LoginPage = () => {
           setError('Application error');
         }
 
-        setDisabled(false);
+        setSubmitDisabled(false);
+        setSubmitting(false);
       });
   };
 
@@ -70,7 +80,7 @@ const LoginPage = () => {
       <div className="field">
         <label className="label">Username</label>
         <div className="control has-icons-left">
-          <input className="input" value={username} onChange={handleUsernameInput} />
+          <input className="input" value={username} disabled={submitting} onChange={handleUsernameInput} />
           <span className="icon is-small is-left">
             <i className="fas fa-user" />
           </span>
@@ -79,7 +89,7 @@ const LoginPage = () => {
       <div className="field">
         <label className="label">Password</label>
         <div className="control has-icons-left">
-          <input className="input" type="password" value={password} onChange={handlePasswordInput} />
+          <input className="input" type="password" value={password} disabled={submitting} onChange={handlePasswordInput} />
           <span className="icon is-small is-left">
             <i className="fas fa-lock" />
           </span>
@@ -87,7 +97,7 @@ const LoginPage = () => {
       </div>
       <br />
       <div className="buttons is-centered">
-        <button type="submit" className="button is-primary" disabled={disabled} onClick={submitLogin}>
+        <button type="submit" className="button is-primary" disabled={submitDisabled} onClick={submitLogin}>
           Submit
         </button>
       </div>

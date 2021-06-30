@@ -13,6 +13,8 @@ export class UserMapper {
       role: user.role,
       firstName: user.firstName,
       lastName: user.lastName,
+      active: user.active,
+      reset: user.reset
     };
   }
 
@@ -24,6 +26,8 @@ export class UserMapper {
       role: dto.role,
       firstName: dto.firstName,
       lastName: dto.lastName,
+      active: true,
+      reset: true
     };
   }
 }

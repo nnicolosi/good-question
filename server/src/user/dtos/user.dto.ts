@@ -5,5 +5,7 @@ export class UserDto {
   username: string;
   role: Role;
   firstName: string;
-  lastName: string
+  lastName: string;
+  active: boolean;
+  reset: boolean;
 }

@@ -32,4 +32,9 @@ export class UserService {
       where: { id: result?.identifiers[0].id },
     });
   }
+
+  async update(user: User): Promise<User> {
+    const result = await this.userRepository.save(user);
+    return this.userRepository.findOne({ where: { id: user.id } });
+  }
 }

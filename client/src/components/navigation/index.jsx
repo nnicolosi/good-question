@@ -14,7 +14,7 @@ const Navigation = () => {
     logout().then(() => {
       cookies.set('jwt', null, { maxAge: 0 });
       userContext.removeCurrentUser();
-      history.push('/');
+      history.push('/login');
     });
   };
 

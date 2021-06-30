@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserMapper } from '../user/user.mapper';
 import { UserService } from '../user/user.service';
+import { SetPasswordDto } from './dtos/set-password.dto';
 
 @Injectable()
 export class AuthService {
@@ -36,5 +37,16 @@ export class AuthService {
     return {
       token: this.jwtService.sign(payload),
     };
+  }
+
+  async setPassword(userId: number, dto: SetPasswordDto): Promise<any> {
+    const user = await this.userService.findById(userId);
+
+    if (user) {
+      user.password = await bcrypt.hash(dto.password, 10);
+      user.reset = false;
+      await this.userService.update(user);
+      return this.userMapper.mapEntityToDto(user);
+    }
   }
 }
