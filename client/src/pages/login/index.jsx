@@ -79,7 +79,7 @@ const LoginPage = () => {
       <div className="field">
         <label className="label">Username</label>
         <div className="control has-icons-left">
-          <input className="input" value={username} disabled={submitting} onChange={handleUsernameInput} />
+          <input className="input" autoFocus value={username} disabled={submitting} onChange={handleUsernameInput} />
           <span className="icon is-small is-left">
             <i className="fas fa-user" />
           </span>

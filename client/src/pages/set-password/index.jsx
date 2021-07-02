@@ -87,7 +87,7 @@ const SetPasswordPage = () => {
       <div className="field">
         <label className="label">Enter a New Password (at least eight characters)</label>
         <div className="control has-icons-left">
-          <input className="input" type="password" value={passwordOne} disabled={submitting} onChange={handlePasswordOneInput} />
+          <input className="input" type="password" autoFocus value={passwordOne} disabled={submitting} onChange={handlePasswordOneInput} />
           <span className="icon is-small is-left">
             <i className="fas fa-lock" />
           </span>
