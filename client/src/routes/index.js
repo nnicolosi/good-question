@@ -1,5 +1,6 @@
 import { Switch, Route } from 'react-router-dom';
-import GuardedRoute from './guarded-route';
+import AuthenticatedRoute from './authenticated-route';
+import AuthorizedRoute from './authorized-route';
 import HomePage from '../pages/home';
 import LoginPage from '../pages/login';
 import SetPasswordPage from '../pages/set-password';
@@ -11,9 +12,9 @@ const Routes = () => {
   return (
     <Switch>
       <Route path="/login" component={LoginPage} />
-      <Route path="/set-password" component={SetPasswordPage} />
+      <AuthenticatedRoute path="/set-password" component={SetPasswordPage} />
       <Route path="/home" component={HomePage} />
-      <GuardedRoute path="/users" component={UsersPage} roles={['admin']} />
+      <AuthorizedRoute path="/users" component={UsersPage} roles={['admin']} />
       <Route path="/access-denied" component={AccessDenied} />
       <Route exact path="/" component={HomePage} />
       <Route component={NotFound} />
