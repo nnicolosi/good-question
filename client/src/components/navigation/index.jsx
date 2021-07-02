@@ -1,19 +1,17 @@
-import { useContext, useMemo } from 'react';
-import { Cookies } from 'react-cookie';
+import { useCookies } from 'react-cookie';
 import { Link, NavLink, useHistory } from 'react-router-dom';
 import { logout } from '../../services/account.service';
-import { UserContext } from '../../context/user-context';
+import { JWT, USER } from '../../constants';
 import './navigation.scss';
 
 const Navigation = () => {
-  const cookies = useMemo(() => new Cookies(), []);
-  const userContext = useContext(UserContext);
   const history = useHistory();
+  const [cookies, setCookie] = useCookies([JWT, USER]);
 
   const logoutUser = () => {
     logout().then(() => {
-      cookies.set('jwt', null, { maxAge: 0 });
-      userContext.removeCurrentUser();
+      setCookie(JWT, null, { maxAge: 0 });
+      setCookie(USER, null, { maxAge: 0 });
       history.push('/login');
     });
   };
@@ -27,7 +25,7 @@ const Navigation = () => {
         </Link>
       </div>
       <div className="navbar-end">
-        {userContext.user ? (
+        {cookies.USER ? (
           <Link className="navbar-item" to="/" onClick={logoutUser}>
             Logout
           </Link>

@@ -1,8 +1,9 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useCookies } from 'react-cookie';
 import { useHistory } from 'react-router-dom';
 import { setPassword } from '../../services/account.service';
 import { current } from '../../services/user.service';
-import { UserContext } from '../../context/user-context';
+import { USER } from '../../constants';
 import './set-password.scss';
 
 const SetPasswordPage = () => {
@@ -12,7 +13,7 @@ const SetPasswordPage = () => {
   const [submitDisabled, setSubmitDisabled] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
-  const userContext = useContext(UserContext);
+  const [, setCookie] = useCookies([USER]);
   const history = useHistory();
 
   const isValidLength = (password) => {
@@ -58,8 +59,7 @@ const SetPasswordPage = () => {
       .then((response) => {
         if (response?.status === 201) {
           current().then((response) => {
-            console.log(response.data);
-            userContext.setCurrentUser(response.data);
+            setCookie(USER, response.data);
             history.push('/');
           });
         } else {

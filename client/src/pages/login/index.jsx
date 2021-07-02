@@ -1,9 +1,9 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { useHistory } from 'react-router-dom';
 import { login } from '../../services/account.service';
 import { current } from '../../services/user.service';
-import { UserContext } from '../../context/user-context';
+import { JWT, USER } from '../../constants';
 import './login.scss';
 
 const LoginPage = () => {
@@ -12,8 +12,7 @@ const LoginPage = () => {
   const [submitDisabled, setSubmitDisabled] = useState(true);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
-  const [, setCookie] = useCookies(['jwt']);
-  const userContext = useContext(UserContext);
+  const [, setCookie] = useCookies([JWT, USER]);
   const history = useHistory();
 
   const handleUsernameInput = (e) => {
@@ -44,11 +43,11 @@ const LoginPage = () => {
     login(username, password)
       .then((response) => {
         if (response?.status === 201 && response?.data?.token) {
-          setCookie('jwt', response.data.token);
+          setCookie(JWT, response.data.token);
 
           current().then((response) => {
             const user = response.data;
-            userContext.setCurrentUser(user);
+            setCookie(USER, user);
 
             if (user.reset) {
               history.push('/set-password');

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Cookies } from 'react-cookie';
+import { JWT } from './constants';
 import axios from 'axios';
 import './index.scss';
 
@@ -15,7 +16,7 @@ ReactDOM.render(
 
 axios.interceptors.request.use((config) => {
   const cookies = new Cookies();
-  const jwt = cookies.get('jwt');
+  const jwt = cookies.get(JWT);
 
   if (jwt) {
     config.headers.Authorization = `Bearer ${jwt}`;
