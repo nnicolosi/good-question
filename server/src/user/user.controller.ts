@@ -32,6 +32,7 @@ export class UserController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @Roles(Role.Admin)
   @Get()
   async findAll(): Promise<UserDto[]> {
     const users = await this.userService.findAll();
@@ -39,6 +40,7 @@ export class UserController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @Roles(Role.Admin)
   @Get(':id')
   async findById(@Param('id', ParseIntPipe) id: number): Promise<UserDto> {
     const user = await this.userService.findById(id);

@@ -16,6 +16,34 @@ const Navigation = () => {
     });
   };
 
+  const menuItems = () => {
+    const items = [];
+
+    if (cookies.USER && cookies.USER.role === 'admin') {
+      items.push(
+        <NavLink key="users" className="navbar-item" to="/users" activeClassName="active">
+          Users
+        </NavLink>
+      );
+    }
+
+    if (cookies.USER) {
+      items.push(
+        <Link key="logout" className="navbar-item" to="/" onClick={logoutUser}>
+          Logout
+        </Link>
+      );
+    } else {
+      items.push(
+        <NavLink key="login" className="navbar-item" to="/login" activeClassName="active">
+          Login
+        </NavLink>
+      );
+    }
+
+    return items;
+  };
+
   return (
     <nav className="navbar is-light" role="navigation" aria-label="main navigation">
       <div className="navbar-brand">
@@ -24,17 +52,7 @@ const Navigation = () => {
           <span className="navbar-brand-name">Good Question</span>
         </Link>
       </div>
-      <div className="navbar-end">
-        {cookies.USER ? (
-          <Link className="navbar-item" to="/" onClick={logoutUser}>
-            Logout
-          </Link>
-        ) : (
-          <NavLink className="navbar-item" to="/login" activeClassName="active">
-            Login
-          </NavLink>
-        )}
-      </div>
+      <div className="navbar-end">{menuItems()}</div>
     </nav>
   );
 };

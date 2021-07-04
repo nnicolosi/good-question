@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Cookies } from 'react-cookie';
-import { JWT } from './constants';
+import { JWT, USER } from './constants';
 import axios from 'axios';
 import './index.scss';
 
@@ -31,6 +31,9 @@ axios.interceptors.response.use(
   },
   (error) => {
     if (error.response.status === 401) {
+      const cookies = new Cookies();
+      cookies.remove(JWT, { maxAge: 0 });
+      cookies.remove(USER, { maxAge: 0 });
       window.location.href = '/login';
     }
   }

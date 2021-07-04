@@ -2,7 +2,7 @@ import { useCookies } from 'react-cookie';
 import { Redirect, Route } from 'react-router-dom';
 import { USER } from '../constants';
 
-const GuardedRoute = (props) => {
+const AuthorizedRoute = (props) => {
   const [cookies] = useCookies([USER]);
   const user = cookies.USER;
   const authorized = user && props.roles.includes(user.role);
@@ -10,4 +10,4 @@ const GuardedRoute = (props) => {
   return authorized ? <Route {...props} /> : <Redirect to="/access-denied" />;
 };
 
-export default GuardedRoute;
+export default AuthorizedRoute;
