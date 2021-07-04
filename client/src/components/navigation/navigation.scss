@@ -11,20 +11,25 @@
     }
   }
 
-  .navbar-item {
+  .navbar-menu {
     background-color: transparent !important;
 
-    &:hover {
+    .navbar-item {
       background-color: transparent !important;
+      color: rgba(0, 0, 0, 0.7) !important;
+
+      &:hover {
+        background-color: transparent !important;
+      }
+
+      &.active {
+        background-color: transparent !important;
+        cursor: default;
+      }
     }
 
-    &.active {
-      background-color: transparent !important;
-      cursor: default;
+    .navbar-end {
+      margin-right: 8px;
     }
-  }
-
-  .navbar-end {
-    margin-right: 8px;
   }
 }

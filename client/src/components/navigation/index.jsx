@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useCookies } from 'react-cookie';
 import { Link, NavLink, useHistory } from 'react-router-dom';
 import { logout } from '../../services/account.service';
@@ -7,6 +8,7 @@ import './navigation.scss';
 const Navigation = () => {
   const history = useHistory();
   const [cookies, setCookie] = useCookies([JWT, USER]);
+  const [burgerMenuToggle, setBurgerMenuToggle] = useState(false);
 
   const logoutUser = () => {
     logout().then(() => {
@@ -16,7 +18,7 @@ const Navigation = () => {
     });
   };
 
-  const menuItems = () => {
+  const startMenuItems = () => {
     const items = [];
 
     if (cookies.USER && cookies.USER.role === 'admin') {
@@ -26,6 +28,12 @@ const Navigation = () => {
         </NavLink>
       );
     }
+
+    return items;
+  };
+
+  const endMenuItems = () => {
+    const items = [];
 
     if (cookies.USER) {
       items.push(
@@ -44,6 +52,10 @@ const Navigation = () => {
     return items;
   };
 
+  const toggleBurgerMenu = () => {
+    setBurgerMenuToggle(!burgerMenuToggle);
+  };
+
   return (
     <nav className="navbar is-light" role="navigation" aria-label="main navigation">
       <div className="navbar-brand">
@@ -51,8 +63,16 @@ const Navigation = () => {
           <img src="/favicon-32x32.png" alt="Logo" width="28" height="28" />
           <span className="navbar-brand-name">Good Question</span>
         </Link>
+        <a id="burger" className={`navbar-burger ${burgerMenuToggle ? 'is-active' : ''}`} onClick={toggleBurgerMenu} data-target="menu">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
       </div>
-      <div className="navbar-end">{menuItems()}</div>
+      <div id="menu" className={`navbar-menu ${burgerMenuToggle ? 'is-active' : ''}`}>
+        <div className="navbar-start">{startMenuItems()}</div>
+        <div className="navbar-end">{endMenuItems()}</div>
+      </div>
     </nav>
   );
 };

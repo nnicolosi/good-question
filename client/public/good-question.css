@@ -7850,9 +7850,26 @@ a.has-text-danger-dark:hover, a.has-text-danger-dark:focus {
 hr {
   height: 2px; }
 
+h1.title {
+  font-size: 1.8rem; }
+
+h2.title {
+  font-size: 1.7rem; }
+
+h3.title {
+  font-size: 1.6rem; }
+
+h4.title {
+  font-size: 1.5rem; }
+
+h5.title {
+  font-size: 1.4rem; }
+
 h6 {
   text-transform: uppercase;
   letter-spacing: 0.5px; }
+  h6.title {
+    font-size: 1.4rem; }
 
 .hero {
   background-color: #343c3d; }
