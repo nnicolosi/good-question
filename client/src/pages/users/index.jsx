@@ -1,5 +1,6 @@
-import { Fragment, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getAllUsers } from '../../services/user.service';
+import './users.scss';
 
 const UsersPage = () => {
   const [tableHeaders, setTableHeaders] = useState([]);
@@ -42,10 +43,13 @@ const UsersPage = () => {
   }, []);
 
   return (
-    <Fragment>
+    <div className="users-page">
       <div className="section">
         <div className="container">
-          <h6 className="title">Users</h6>
+          <div className="container page-header">
+            <h6 className="title">Users</h6>
+            <button className="button is-primary create-user-button">Create User</button>
+          </div>
           <hr />
           <table className="table is-fullwidth is-hoverable">
             <thead>{tableHeaders}</thead>
@@ -53,7 +57,7 @@ const UsersPage = () => {
           </table>
         </div>
       </div>
-    </Fragment>
+    </div>
   );
 };
 

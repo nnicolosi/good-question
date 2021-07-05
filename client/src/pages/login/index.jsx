@@ -43,11 +43,11 @@ const LoginPage = () => {
     login(username, password)
       .then((response) => {
         if (response?.status === 201 && response?.data?.token) {
-          setCookie(JWT, response.data.token);
+          setCookie(JWT, response.data.token, { maxAge: 60 * 60 * 24 });
 
           current().then((response) => {
             const user = response.data;
-            setCookie(USER, user);
+            setCookie(USER, user, { maxAge: 60 * 60 * 24 });
 
             if (user.reset) {
               history.push('/set-password');
@@ -75,7 +75,7 @@ const LoginPage = () => {
   };
 
   return (
-    <form className="box login-form">
+    <form className="box login-page">
       <div className="field">
         <label className="label">Username</label>
         <div className="control has-icons-left">

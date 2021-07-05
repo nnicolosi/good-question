@@ -82,7 +82,7 @@ const SetPasswordPage = () => {
   };
 
   return (
-    <form className="box login-form">
+    <form className="box set-password-page">
       <div className="box message">Your administrator requires you to set a new password.</div>
       <div className="field">
         <label className="label">Enter a New Password (at least eight characters)</label>
