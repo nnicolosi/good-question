@@ -63,6 +63,7 @@ const Navigation = () => {
           <img src="/favicon-32x32.png" alt="Logo" width="28" height="28" />
           <span className="navbar-brand-name">Good Question</span>
         </Link>
+        {/* eslint-disable-next-line */}
         <a id="burger" className={`navbar-burger ${burgerMenuToggle ? 'is-active' : ''}`} onClick={toggleBurgerMenu} data-target="menu">
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>

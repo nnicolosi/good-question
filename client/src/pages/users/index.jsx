@@ -1,10 +1,13 @@
-import { useEffect, useState } from 'react';
+import { React, useEffect, useState } from 'react';
 import { getAllUsers } from '../../services/user.service';
+import UserModal from '../../components/user-modal';
+import ModalContext from '../../contexts/modal-context';
 import './users.scss';
 
 const UsersPage = () => {
   const [tableHeaders, setTableHeaders] = useState([]);
   const [tableRows, setTableRows] = useState([]);
+  const [showModal, setShowModal] = useState(false);
 
   const formatHeader = (header) => {
     return header.replace(/([a-zA-Z])(?=[A-Z])/g, '$1 ').toUpperCase();
@@ -48,7 +51,9 @@ const UsersPage = () => {
         <div className="container">
           <div className="container page-header">
             <h6 className="title">Users</h6>
-            <button className="button is-primary create-user-button">Create User</button>
+            <button className="button is-primary create-user-button" onClick={() => setShowModal(true)}>
+              Create User
+            </button>
           </div>
           <hr />
           <table className="table is-fullwidth is-hoverable">
@@ -57,6 +62,9 @@ const UsersPage = () => {
           </table>
         </div>
       </div>
+      <ModalContext.Provider value={{ showModal: showModal, closeModal: () => setShowModal(false) }}>
+        <UserModal />
+      </ModalContext.Provider>
     </div>
   );
 };
